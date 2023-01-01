@@ -3,7 +3,8 @@
     "phaser": "^3.55.2"
   },
   "devDependencies": {
-    "parcel": "^2.8.2"
+    "parcel": "^2.8.2",
+    "prettier": "2.8.1"
   },
   "scripts": {
     "start": "parcel src/index.html",
