@@ -1,4 +1,4 @@
-name: "Prettier: Code Style"
+name: "Prettier Code Style Check"
 
 on:
   pull_request:
@@ -6,16 +6,17 @@ on:
       - "main"
 
 jobs:
-  runs-on: "ubuntu-latest"
+  style-check:
+    runs-on: "ubuntu-latest"
 
-  steps:
-    - uses: actions/checkout@v3
+    steps:
+      - uses: actions/checkout@v3
 
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: "npm"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
 
-    - run: npm install
+      - run: npm install
 
-    - run: npx prettier --check --ignore-unknown .
+      - run: npx prettier --check --ignore-unknown .
