@@ -6,17 +6,19 @@ import bulletImage from "../images/bullet.png";
 
 import Launcher from "../components/launcher";
 
-export default class LevelOneIntro extends Phaser.Scene {
+export default class Tutorial extends Phaser.Scene {
   launchers: Launcher[];
+  dustParticles: Phaser.GameObjects.Particles.ParticleEmitterManager;
 
   constructor() {
-    super("LevelOneIntro");
+    super("Tutorial");
   }
 
   preload() {
     this.load.image("rock", rockImage);
     this.load.image("ground", groundImage);
     this.load.image("bullet", bulletImage);
+    this.load.image("dust", rockImage);
     Launcher.preload(this);
   }
 
@@ -32,7 +34,22 @@ export default class LevelOneIntro extends Phaser.Scene {
 
     this.addTutorialText();
 
-    this.physics.add.collider(bullets, rock, () => {});
+    this.dustParticles = this.add.particles("dust");
+    const emitter = this.dustParticles.createEmitter({
+      speed: 10,
+      scale: { start: 0.05, end: 0 },
+      blendMode: "ADD",
+    });
+    emitter.setPosition(100, 100);
+    emitter.setFrequency(-1);
+    emitter.setSpeed(100);
+    emitter.startFollow(rock);
+
+    this.physics.add.collider(bullets, rock, (obj1, obj2) => {
+      obj1.destroy();
+      obj2.destroy();
+      emitter.explode(50, 0, 0);
+    });
   }
 
   private addLaunchers() {
