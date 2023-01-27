@@ -8,6 +8,7 @@ import Launcher from "../components/launcher";
 
 export default class Tutorial extends Phaser.Scene {
   launchers: Launcher[];
+  tutorialText: Phaser.GameObjects.Text[];
   dustParticles: Phaser.GameObjects.Particles.ParticleEmitterManager;
 
   constructor() {
@@ -49,6 +50,19 @@ export default class Tutorial extends Phaser.Scene {
       obj1.destroy();
       obj2.destroy();
       emitter.explode(50, 0, 0);
+
+      this.tutorialText.forEach((text) => {
+        text.destroy();
+      });
+
+      this.add.text(120, 100, "Great job!", {
+        fontSize: "7em",
+        fontFamily: "monospace",
+      });
+
+      setTimeout(() => {
+        this.scene.start("LevelOne");
+      }, 5000);
     });
   }
 
@@ -61,22 +75,24 @@ export default class Tutorial extends Phaser.Scene {
   }
 
   private addTutorialText() {
-    this.add.text(120, 100, "<- This rock wants to destroy things!", {
-      fontSize: "2em",
-      fontFamily: "monospace",
-    });
-    this.add.text(
-      50,
-      450,
-      [
-        "Aim with the mouse, and press 1, 2, or 3 to shoot.",
-        "Blow up the rock with a bullet to continue.",
-      ],
-      {
-        fontSize: "2.7em",
+    this.tutorialText = [
+      this.add.text(120, 100, "<- This rock wants to destroy things!", {
+        fontSize: "2em",
         fontFamily: "monospace",
-      }
-    );
+      }),
+      this.add.text(
+        50,
+        450,
+        [
+          "Aim with the mouse, and press 1, 2, or 3 to shoot.",
+          "Blow up the rock with a bullet to continue.",
+        ],
+        {
+          fontSize: "2.7em",
+          fontFamily: "monospace",
+        }
+      ),
+    ];
   }
 
   private addLauncherKeys(bullets: Phaser.Physics.Arcade.Group) {
