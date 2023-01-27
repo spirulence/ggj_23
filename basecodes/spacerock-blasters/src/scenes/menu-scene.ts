@@ -25,7 +25,7 @@ export default class MainMenu extends Phaser.Scene {
 
     this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE).onUp =
       () => {
-        this.scene.start("Tutorial");
+        this.scene.start("LevelOne");
       };
 
     this.updateNumber = 0;
