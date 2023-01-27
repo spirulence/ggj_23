@@ -2,7 +2,7 @@ import * as Phaser from "phaser";
 
 import MainMenu from "./scenes/menu-scene";
 import LevelOne from "./scenes/level1-scene";
-import LevelOneIntro from "./scenes/level1-intro";
+import Tutorial from "./scenes/tutorial";
 
 var config = {
   type: Phaser.AUTO,
@@ -17,7 +17,7 @@ var config = {
   fps: {
     target: 20,
   },
-  scene: [MainMenu, LevelOneIntro, LevelOne],
+  scene: [MainMenu, Tutorial, LevelOne],
 };
 
 var game = new Phaser.Game(config);
